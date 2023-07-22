@@ -3,6 +3,18 @@ import requests as req
 import math
 from collections import defaultdict
 
+'''
+This is a basic implementation of the search result scoring
+
+TF-IDF stands for Term Frequency-Inverse Document Frequency. 
+
+1. Term Frequency measures how frequently a term appears in a document. It is calculated as the ratio of the number of times a term (word) appears in the document to the total number of words in that document. 
+The intuition behind this is that the more times a term occurs in a document, the more important it is in representing the content of that document.
+
+2. Inverse Document Frequency measures the rarity of a term across the entire corpus. It is calculated as the logarithm of the ratio of the total number of documents in the corpus to the number of documents that contain the term. 
+The IDF value helps in reducing the weight of common terms that occur in many documents, making them less informative.
+'''
+
 def preprocess_text(text):
     # We may want to implement text preprocessing here, like removing punctuation, converting to lowercase, etc.
     return text
