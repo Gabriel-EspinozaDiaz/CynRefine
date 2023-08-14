@@ -1,6 +1,9 @@
-from bs4 import BeautifulSoup
-import requests as req
+import scraper
+import iterator
+import os
 
-page = req.get('http://parts.igem.org/Part:BBa_K3237027')
-soup = BeautifulSoup(page.text,'html.parser')
-print(soup.prettify())
+'''
+
+'''
+
+iter1 = iterator.Iterator()
