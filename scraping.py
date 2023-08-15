@@ -58,9 +58,15 @@ class Scraper:
         fasta = 'http://parts.igem.org/fasta/parts/BBa_'+re.findall("BBa_.+",self.url)[0][4:]
         response = requests.get(fasta)
         if response.status_code == 200: 
-            sequence = ''
-            for line in urllib.request.urlopen(fasta):
-                sequence += str(line)
+            data = ''
+            for line in list(urllib.request.urlopen(fasta))[1:]:
+                data += str(line)
+                sequence = ''
+            #Removes byte markers
+            for c in data:
+                if c == 'b' or c == "'":
+                    continue
+                sequence += c
             return sequence
         else: 
             return False
