@@ -1,0 +1,137 @@
+main page
+design
+experience
+information
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+Released HQ 2013
+Sample In stock
+1 Registry Star
+318 Uses
+
+3 Twins
+ Get This Part
+Coding
+tetR
+
+Part:BBa_C0040 
+                Designed by: June Rhee, Connie Tao, Ty Thomson, Louis Waldman.    Group: Antiquity   (2003-01-31)
+ 
+
+
+
+tetracycline repressor from transposon Tn10 (+LVA)
+Coding region for the TetR protein without the Ribosome Binding Site. Modified  .    with an LVA tail for rapid degradation of the protein and faster fall time      for the emission. TetR binds to the pTet regulator (Part:BBa_R0040). aTc (anhydrotetracycline)      binds to TetR and inhibits its operation.
+< ** Allergen characterization of BBa_C0040: Not a potential allergen 
+The Baltimore Biocrew 2017 team discovered that proteins generated through biobrick parts can be evaluated for allergenicity. This information is important to the people using these parts in the lab, as well as when considering using the protein for mass production, or using in the environment. The allergenicity test permits a comparison between the sequences of the biobrick parts and the identified allergen proteins enlisted in a data base.The higher the similarity between the biobricks and the proteins, the more likely the biobrick is allergenic cross-reactive. In the full-length alignments by FASTA, 30% or more amount of similarity signifies that the biobrick has a Precaution Status meaning there is a potential risk with using the part. A 50% or more amount of identity signifies that the biobrick has a Possible Allergen Status. In the sliding window of 80 amino acid segments, greater than 35% signifies similarity to allergens. The percentage of similarity implies the potential of harm biobricks’ potential negative impact to exposed populations. For more information on how to assess your own biobrick part please see the “Allergenicity  Testing Protocol” in the following page http://2017.igem.org/Team:Baltimore_Bio-Crew/Experiments
+For the biobrick part, BBa_C0040, there was a 27.5% of identity match and 57.8% of similarity match compared to the allergen database. This means that the biobrick part is not of potential allergen status. In the 80 amino acid alignments by FASTA, no matches found that are greater than 35% for this biobrick. 
+
+>Internal Priming Screening Characterization of BBa_C0040: Has no possible internal priming sites between this BioBrick part and the VF2 or the VR primer.
+The 2018 Hawaii iGEM team evaluated the 40 most frequently used BioBricks and ran them through an internal priming screening process that we developed using the BLAST program tool. Out of the 40 BioBricks we evaluated, 10 of them showed possible internal priming of either the VF2 or VR primers and sometime even both. The data set has a range of sequence lengths from as small as 12 bases to as large as 1,210 bases. We experienced the issue of possible internal priming during the sequence verification process of our own BBa_K2574001 BioBrick and in the cloning process to express the part as a fusion protein. BBa_K2574001 is a composite part containing a VLP forming Gag protein sequence attached to a frequently used RFP part (BBa_E1010). We conducted a PCR amplification of the Gag-RFP insert using the VF2 and VR primers on the ligation product (pSB1C3 ligated to the Gag + RFP). This amplicon would serve as template for another PCR where we would add the NcoI and BamHI restriction enzyme sites through new primers for ligation into pET14b and subsequent induced expression. Despite gel confirming a rather large, approximately 2.1 kb insert band, our sequencing results with the VR primer and BamHI RFP reverse primer gave mixed results. Both should have displayed the end of the RFP, but the VR primer revealed the end of the Gag. Analysis of the VR primer on the Gag-RFP sequence revealed several sites where the VR primer could have annealed with ~9 - 12 bp of complementarity. Internal priming of forward and reverse primers can be detrimental to an iGEM project because you can never be sure if the desired construct was correctly inserted into the BioBrick plasmid without a successful sequence verification.
+
+UFlorida's Contribution 2020
+
+In the absence of a lab, The University of Florida 2020 iGEM team offers literature that supports how to increase the expression of Part BBa_C0040 designed by the Baltimore Biocrew 2017 iGem Team. A ribosome binding site can be added within the Tetr genetic sequence. Ribosome binding sites can be experimentally mutated to improve the protein expression of a genetic circuit in bacteria (Salis 2). The Salis and Voigt lab designed a predictive algorithm to model a DNA sequence that can be introduced into a genetic circuit and optimize the ribosome binding and subsequent translation rates (Salis 2). The lab observed the thermodynamic changes in the RNA folding process and used the resulting energy change values to model the sequences (Salis 2). Because the initiation phase, including ribosome binding, of translation is the rate-determining step, synthetically designing the most thermodynamically-favored RBS sequence will improve and speed up the translation rate for the system. See our contribution #2 on our UFlorida 2020 wiki. 
+
+
+Tetr RBS DNA Sequence from E. coli genome (Meyer 5): GGAAGAGAGTCAATTCAGGGTGGTGAAT
+
+
+Tetr RBS DNA Sequence as determined by the RBS calculator (Meyer 5): GTAATAATCCAGGAGGAAAAAA
+
+
+References
+
+
+Meyer, A., Segall-Shapiro, T., Glassey E., Zhang, J. and Voigt, C. (2019). Escherichia coli “Marionnette” strains with 12 highly optimized small-molecule sensors. Nature Chemical Biology. 15:196-204.
+
+
+Salis, H., Mirsky, E. and Voigt, C. (2009). Automated design of synthetic ribosome binding sites to precisely control protein expression. Nat Biotechnology. 27(10): 946-950.
+
+Usage and Biology
+Sequence and Features
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Barcodes are discontinued, but one was appended to the sequence of this part. Composite parts using this part will include the barcode.  More ...   
+
+Assembly Compatibility:
+10COMPATIBLE WITH RFC[10]
+12COMPATIBLE WITH RFC[12]
+21COMPATIBLE WITH RFC[21]
+23COMPATIBLE WITH RFC[23]
+25COMPATIBLE WITH RFC[25]
+1000COMPATIBLE WITH RFC[1000]
+
+ 
+
+
+
+Functional Parameters: Austin_UTexas
+
+
+BBa_C0040 parameters
+Burden Imposed by this Part:
+
+
+
+
+Burden Value: 3.0 ± 4.8% 
+
+ Burden is the percent reduction in the growth rate of E. coli cells transformed with a plasmid containing this BioBrick (± values are 95% confidence limits). This BioBrick did not exhibit a burden that was significantly greater than zero (i.e., it appears to have little to no impact on growth). Therefore, users can depend on this part to remain stable for many bacterial cell divisions and in large culture volumes. Refer to any one of the 
+BBa_K3174002 - BBa_K3174007 pages for more information on the methods, an explanation of the sources of burden,  and other conclusions from a large-scale measurement project conducted by the 2019 Austin_UTexas team.
+This functional parameter was added by the 2020 Austin_UTexas team.
+
+
+
+ 
+
+
+
+
+
+
+
+
+        [edit]
+
+
+Categories
+    //cds/transcriptionalregulator/repressor
+//function/regulation/transcriptional
+    
+
+Parameters
+
+directionForwardfunctionRepligandstetracyclineproteinTetRswissproP04483tagLVA
+
+
+
+

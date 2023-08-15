@@ -1,0 +1,94 @@
+main page
+design
+experience
+information
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+Not Released
+Sample It's complicated
+Experience: Works
+Not Used
+ Get This Part
+Composite
+
+
+Part:BBa_K2607001 
+                Designed by: Andrea Laurentius    Group: iGEM18_UI_Indonesia    (2018-09-25)
+ 
+
+
+
+
+HB-EGF/Tar Receptor (HT) Device
+This part is a chimeric between extracellular (binding) domain of Homo sapiens heparin-binding EGF-like growth factor (HB-EGF) receptor and transmembrane/intracellular domain of Escherichia coli Tar chemotaxis receptor.
+
+Usage and Biology
+This part can be used to detect diphtheria toxin as it has HB-EGF binding domain. It also can activate chemotaxis pathway in E. coli upon receptor activation as it has Tar transmembrane/intracellular domain.
+Sequence and Features
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+Assembly Compatibility:
+10COMPATIBLE WITH RFC[10]
+12COMPATIBLE WITH RFC[12]
+21COMPATIBLE WITH RFC[21]
+23COMPATIBLE WITH RFC[23]
+25INCOMPATIBLE WITH RFC[25]Illegal AgeI site found at 1294
+1000INCOMPATIBLE WITH RFC[1000]Illegal BsaI site found at 1434
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
+        [edit]
+
+
+Categories
+    
+
+
+Parameters
+
+None
+
+
+
+
