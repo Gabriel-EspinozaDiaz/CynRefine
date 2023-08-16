@@ -57,15 +57,14 @@ class Scraper:
         part_status = self.get_part_status(prelude)
         sample_status = self.get_sample_status(prelude)
         experience = self.get_experience(prelude,sample_status)
-        #uses = self.get_uses(prelude,experience)
-        #twins = self.get_twins(prelude)
+        uses = self.get_uses(prelude,experience)
+        twins = self.get_twins(prelude)
     
         with open(name+'.txt', 'w') as f:
             f.write(basic)
-        return [part_status,sample_status,experience]
+        return [part_status,sample_status,experience,uses,twins]
     
     def get_part_status(self,text):
-        print(text)
         if 'discontinued' in text:
             return 'Discontinued'
         elif 'not released' in text:
@@ -113,17 +112,24 @@ class Scraper:
     def get_uses(self,text,exp):
         #Requires the experience due to re being needed for use counting
         if 'not used' in text:
-            return 'not used'
+            return 'Not Used'
         elif 'use' in text:
             exp = exp.lower()+'\n'
-            return str(re.findall(exp+r'(\d*) use',text))
+            result = re.findall(exp+r'(\d*) use',text)[0]
+            if int(result) == 1:
+                return result+' Use'
+            else:
+                return result+' Uses'
         else:
             print('Error occured: no use status found')
             return ''
         return 0
     
     def get_twins(self,text):
-        return 0
+        if 'twins' in text:
+            return 'Contains Twins'
+        else:
+            return 'No Twins'
 
     def check_fasta(self):
         '''
