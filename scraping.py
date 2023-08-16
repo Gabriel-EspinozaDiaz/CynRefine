@@ -40,22 +40,26 @@ class Scraper:
     
     def content_get_data(self):
         '''
-        This method
+        This scrapes
         '''
-        end = 'Part:BBa_'
-        basic = self.content
-        basic = basic[basic.find('main page'):]
-        prelude = basic[:basic.find(end)].lower()
+        #Creates a smaller version of the file for reading in information from the status box
+        digest = self.content[self.content.find('main page'):]
+        digest = digest[:digest.find('Part:BBa_')].lower()
 
         # Determines all tag data from status box information (see info on status boxes at http://parts.igem.org/Help:Part_Status_Box)
-        part_status = self.get_part_status(prelude)
-        sample_status = self.get_sample_status(prelude)
-        experience = self.get_experience(prelude,sample_status)
-        uses = self.get_uses(prelude,experience)
-        twins = self.get_twins(prelude)
-        authors = self.get_authors()
+        part_status = self.get_part_status(digest)
+        sample_status = self.get_sample_status(digest)
+        experience = self.get_experience(digest,sample_status)
+        uses = self.get_uses(digest,experience)
+        twins = self.get_twins(digest)
 
-        return [part_status,sample_status,experience,uses,twins,authors]
+        #Reading in authors and date
+        authors = self.get_authors()
+        org = self.get_org()
+        date = self.get_date()
+
+
+        return [part_status,sample_status,experience,uses,twins,authors,org,date]
     
     def get_part_status(self,text):
         if 'discontinued' in text:
@@ -125,8 +129,13 @@ class Scraper:
             return 'No Twins'
 
     def get_authors(self):
-        return re.findall(r'Designed by: (.*\w).*Group:',self.content)
+        return re.findall(r'Designed by: (.*\w).*Group:',self.content)[0]
     
+    def get_org(self):
+        return re.findall(r'Group: (.*?)\s',self.content)[0]
+        
+    def get_date(self):
+        return re.findall(r'\((.*)\)',self.content)[0]
 
     def check_fasta(self):
         '''
