@@ -52,7 +52,7 @@ class Scraper:
         end = 'Part:BBa_'
         basic = self.content.get_text()
         basic = basic[basic.find('main page'):]
-        prelude = basic[:basic.find(end)]
+        prelude = basic[:basic.find(end)].lower()
         # Determines all tag data from status box information (see info on status boxes at http://parts.igem.org/Help:Part_Status_Box)
         part_status = self.get_part_status(prelude)
         sample_status = self.get_sample_status(prelude)
@@ -66,26 +66,26 @@ class Scraper:
     
     def get_part_status(self,text):
         print(text)
-        if 'Discontinued' in text:
+        if 'discontinued' in text:
             return 'Discontinued'
-        elif 'Not Released' in text:
+        elif 'not released' in text:
             return 'Not Released'
-        elif 'Released HQ' in text:
+        elif 'released hq' in text:
             return 'Released HQ'
-        elif 'Released' in text:
+        elif 'released' in text:
             return 'Released'
         else:
             print('Error occured: no release status found')
             return ''
     
     def get_sample_status(self,text):
-        if 'Sample In Stock' in text:
-            return 'Sample In stock'
-        elif "It's Complicated" in text:
-            return "It's complicated"
-        elif 'Not in Stock' in text:
+        if 'sample in stock' in text:
+            return 'Sample in Stock'
+        elif "it's complicated" in text:
+            return "It's Complicated"
+        elif 'not in stock' in text:
             return 'Not in Stock'
-        elif 'Informational' in text:
+        elif 'informational' in text:
             return 'Informational'
         else:
             print('Error occured: no sample status found')
@@ -93,13 +93,13 @@ class Scraper:
     
     def get_experience(self,text,sample):
         #Requires the sample status due to re being needed for registry star counting
-        if 'Registy Star' in text:
+        if 'registy star' in text:
             return re.findall({sample}+r'\d*use',text)
-        elif 'Works' in text:
+        elif 'works' in text:
             return 'Works'
-        elif 'Issues' in text:
+        elif 'issues' in text:
             return 'Issues'
-        elif 'Fails' in text:
+        elif 'fails' in text:
             return 'Fails'
         else:
             print('Error occured: no sample status found')
@@ -107,7 +107,6 @@ class Scraper:
     
     def get_uses(self,text,experience):
         #Requires the experience due to re being needed for use counting
-        re.findall()
 
         return 0
     
