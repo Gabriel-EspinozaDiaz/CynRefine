@@ -1,19 +1,13 @@
+
+
+Part:BBa C0040 - parts.igem.org
+
+Loading menubar..... 
+
 main page
 design
 experience
 information
- 
- 
-
-
-
-
-
-
-
-
-
-
 
 Released HQ 2013
 Sample In stock
@@ -27,9 +21,6 @@ tetR
 
 Part:BBa_C0040 
                 Designed by: June Rhee, Connie Tao, Ty Thomson, Louis Waldman.    Group: Antiquity   (2003-01-31)
- 
-
-
 
 tetracycline repressor from transposon Tn10 (+LVA)
 Coding region for the TetR protein without the Ribosome Binding Site. Modified  .    with an LVA tail for rapid degradation of the protein and faster fall time      for the emission. TetR binds to the pTet regulator (Part:BBa_R0040). aTc (anhydrotetracycline)      binds to TetR and inhibits its operation.
@@ -44,41 +35,18 @@ UFlorida's Contribution 2020
 
 In the absence of a lab, The University of Florida 2020 iGEM team offers literature that supports how to increase the expression of Part BBa_C0040 designed by the Baltimore Biocrew 2017 iGem Team. A ribosome binding site can be added within the Tetr genetic sequence. Ribosome binding sites can be experimentally mutated to improve the protein expression of a genetic circuit in bacteria (Salis 2). The Salis and Voigt lab designed a predictive algorithm to model a DNA sequence that can be introduced into a genetic circuit and optimize the ribosome binding and subsequent translation rates (Salis 2). The lab observed the thermodynamic changes in the RNA folding process and used the resulting energy change values to model the sequences (Salis 2). Because the initiation phase, including ribosome binding, of translation is the rate-determining step, synthetically designing the most thermodynamically-favored RBS sequence will improve and speed up the translation rate for the system. See our contribution #2 on our UFlorida 2020 wiki. 
 
-
 Tetr RBS DNA Sequence from E. coli genome (Meyer 5): GGAAGAGAGTCAATTCAGGGTGGTGAAT
-
 
 Tetr RBS DNA Sequence as determined by the RBS calculator (Meyer 5): GTAATAATCCAGGAGGAAAAAA
 
-
 References
 
-
 Meyer, A., Segall-Shapiro, T., Glassey E., Zhang, J. and Voigt, C. (2019). Escherichia coli “Marionnette” strains with 12 highly optimized small-molecule sensors. Nature Chemical Biology. 15:196-204.
-
 
 Salis, H., Mirsky, E. and Voigt, C. (2009). Automated design of synthetic ribosome binding sites to precisely control protein expression. Nat Biotechnology. 27(10): 946-950.
 
 Usage and Biology
 Sequence and Features
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Barcodes are discontinued, but one was appended to the sequence of this part. Composite parts using this part will include the barcode.  More ...   
 
@@ -90,18 +58,10 @@ Assembly Compatibility:
 25COMPATIBLE WITH RFC[25]
 1000COMPATIBLE WITH RFC[1000]
 
- 
-
-
-
 Functional Parameters: Austin_UTexas
-
 
 BBa_C0040 parameters
 Burden Imposed by this Part:
-
-
-
 
 Burden Value: 3.0 ± 4.8% 
 
@@ -109,29 +69,13 @@ Burden Value: 3.0 ± 4.8%
 BBa_K3174002 - BBa_K3174007 pages for more information on the methods, an explanation of the sources of burden,  and other conclusions from a large-scale measurement project conducted by the 2019 Austin_UTexas team.
 This functional parameter was added by the 2020 Austin_UTexas team.
 
-
-
- 
-
-
-
-
-
-
-
-
         [edit]
-
 
 Categories
     //cds/transcriptionalregulator/repressor
 //function/regulation/transcriptional
-    
 
 Parameters
 
 directionForwardfunctionRepligandstetracyclineproteinTetRswissproP04483tagLVA
-
-
-
 

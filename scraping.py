@@ -30,38 +30,30 @@ class Scraper:
         '''
         response = requests.get(self.url)
         soup = BeautifulSoup(response.text, 'html.parser')
-        self.content = soup
+        #Scrub off multiple consecutive newlines and 
+        content = re.sub(r'(\n\s*)+\n', '\n\n',soup.get_text())
+        self.content = content
     
-    def content_technical(self):
-        '''
-        Shows the content as it's stored. Better for technical use. 
-        '''
-        return self.content
+    def write_content(self,name):
+        with open(name+'.txt', 'w') as f:
+            f.write(self.content)
     
-    def content_for_user(self):
+    def content_get_data(self):
         '''
-        Presents the content with newlines and indents inserted. 
-        This modifies the appearance, making information easier to digest. 
-        '''
-        return self.content.prettify()
-    
-    def content_get_data(self,name):
-        '''
-        Once this method is finished, it will break down a page by 
+        This method
         '''
         end = 'Part:BBa_'
-        basic = self.content.get_text()
+        basic = self.content
         basic = basic[basic.find('main page'):]
         prelude = basic[:basic.find(end)].lower()
+
         # Determines all tag data from status box information (see info on status boxes at http://parts.igem.org/Help:Part_Status_Box)
         part_status = self.get_part_status(prelude)
         sample_status = self.get_sample_status(prelude)
         experience = self.get_experience(prelude,sample_status)
         uses = self.get_uses(prelude,experience)
         twins = self.get_twins(prelude)
-    
-        with open(name+'.txt', 'w') as f:
-            f.write(basic)
+
         return [part_status,sample_status,experience,uses,twins]
     
     def get_part_status(self,text):
