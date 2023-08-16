@@ -93,8 +93,9 @@ class Scraper:
     
     def get_experience(self,text,sample):
         #Requires the sample status due to re being needed for registry star counting
-        if 'registy star' in text:
-            return re.findall({sample}+r'\d*use',text)
+        sample = sample.lower()+'\n'
+        if 'registry star' in text:
+            return re.findall(sample+r'(\d* registry star)',text)[0]
         elif 'works' in text:
             return 'Works'
         elif 'issues' in text:
