@@ -33,10 +33,10 @@ class Scraper:
     def write_content(self,name):
         with open(name+'.txt', 'w') as f:
             f.write(self.content)
-    
+
     def scrape_data(self):
         '''
-        This scrapes the 
+        Returns a list containing authors, team, date, and all statuses listed on the page. 
         '''
         #Creates a smaller version of the file for reading in information from the status box
         digest = self.content[self.content.find('main page'):]
@@ -57,7 +57,10 @@ class Scraper:
         return [part_status,sample_status,experience,uses,twins,authors,org,date]
     
     def scrape_text(self):
-        return re.findall(self.get_date()+r'\)(.*)\[edit\]',self.content,re.DOTALL)
+        '''
+        Returns all of the text found on the page
+        '''
+        return re.findall(self.get_date()+r'\)(.*)\[edit\]',self.content,re.DOTALL)[0]
 
     def get_part_status(self,text):
         if 'discontinued' in text:
@@ -127,13 +130,28 @@ class Scraper:
             return 'No Twins'
 
     def get_authors(self):
-        return re.findall(r'Designed by: (.*\w).*Group:',self.content)[0]
+        authors = re.findall(r'Designed by: (.*\w).*Group:',self.content)[0]
+        authors = authors.replace(' ','_')
+        authors = authors.replace(',_',' ')
+        return authors
     
     def get_org(self):
         return re.findall(r'Group: (.*?)\s',self.content)[0]
         
     def get_date(self):
         return re.findall(r'\((.*)\)',self.content)[0]
+
+    def package_for_csv(self):
+        '''
+        Packages all relevant information so that it can be read into a single row for a csv file
+        '''
+        data = [re.findall(r'Part:(BBa_.*)',self.url)[0]]
+        data += self.scrape_data()
+        #Removes all commas from text, as to avoid confusing the csv file
+        text = self.scrape_text().replace(',','')
+        text = text.replace('\n','')
+        data.append(text)
+        return data
 
     def check_fasta(self):
         '''

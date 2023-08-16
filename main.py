@@ -1,4 +1,4 @@
-import scraping
+from scraping import Scraper
 import iterations
 import os
 
@@ -6,10 +6,9 @@ import os
 
 '''
 
-scrape1 = scraping.Scraper('http://parts.igem.org/Part:BBa_C0040')
-scrape2 = scraping.Scraper('http://parts.igem.org/wiki/index.php?title=Part:BBa_K2607001')
+scrape1 = Scraper('http://parts.igem.org/Part:BBa_C0040')
+scrape2 = Scraper('http://parts.igem.org/wiki/index.php?title=Part:BBa_K2607001')
+trial = iterations.Trial()
 
-scrape1.write_content('ex1')
-print(scrape1.scrape_text())
-scrape2.write_content('ex2')
-print(scrape2.scrape_text())
+trial.page_as_csv('example1',scrape1)
+trial.page_as_csv('example2',scrape2)
