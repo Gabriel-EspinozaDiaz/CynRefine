@@ -11,7 +11,13 @@ class Scraper:
     def __init__(self,url):
         if type(url) != str:
             raise TypeError("url must be in string form")
+        #obtain data from website
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        #Scrub off multiple consecutive newlines and 
+        content = re.sub(r'(\n\s*)+\n', '\n\n',soup.get_text())
         self.url = url
+        self.content = content
     
     def check_url(self):
         '''
@@ -24,16 +30,6 @@ class Scraper:
         else:
             print("response failed.")
         
-    def get_content(self):
-        '''
-        Retrieves information from the website
-        '''
-        response = requests.get(self.url)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        #Scrub off multiple consecutive newlines and 
-        content = re.sub(r'(\n\s*)+\n', '\n\n',soup.get_text())
-        self.content = content
-    
     def write_content(self,name):
         with open(name+'.txt', 'w') as f:
             f.write(self.content)
