@@ -57,7 +57,7 @@ class Scraper:
         part_status = self.get_part_status(prelude)
         sample_status = self.get_sample_status(prelude)
         experience = self.get_experience(prelude,sample_status)
-        #uses = self.get_uses(prelude)
+        #uses = self.get_uses(prelude,experience)
         #twins = self.get_twins(prelude)
     
         with open(name+'.txt', 'w') as f:
@@ -93,9 +93,13 @@ class Scraper:
     
     def get_experience(self,text,sample):
         #Requires the sample status due to re being needed for registry star counting
-        sample = sample.lower()+'\n'
         if 'registry star' in text:
-            return re.findall(sample+r'(\d* registry star)',text)[0]
+            sample = sample.lower()+'\n'
+            result = re.findall(sample+r'(\d*) registry star',text)[0]
+            if int(result) == 1:
+                return result+' Registry Star'
+            else:
+                return result+' Registry Stars'
         elif 'works' in text:
             return 'Works'
         elif 'issues' in text:
@@ -106,9 +110,16 @@ class Scraper:
             print('Error occured: no sample status found')
             return ''
     
-    def get_uses(self,text,experience):
+    def get_uses(self,text,exp):
         #Requires the experience due to re being needed for use counting
-
+        if 'not used' in text:
+            return 'not used'
+        elif 'use' in text:
+            exp = exp.lower()+'\n'
+            return str(re.findall(exp+r'(\d*) use',text))
+        else:
+            print('Error occured: no use status found')
+            return ''
         return 0
     
     def get_twins(self,text):
