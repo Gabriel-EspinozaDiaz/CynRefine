@@ -55,41 +55,64 @@ class Scraper:
         prelude = basic[:basic.find(end)]
         # Determines all tag data from status box information (see info on status boxes at http://parts.igem.org/Help:Part_Status_Box)
         part_status = self.get_part_status(prelude)
-        #sample_status = self.get_sample_status(prelude)
-        #experience = self.get_experience(prelude)
+        sample_status = self.get_sample_status(prelude)
+        experience = self.get_experience(prelude,sample_status)
         #uses = self.get_uses(prelude)
         #twins = self.get_twins(prelude)
     
         with open(name+'.txt', 'w') as f:
             f.write(basic)
-        return part_status
+        return [part_status,sample_status,experience]
     
     def get_part_status(self,text):
-        start1_2 = 'Released' #This counts for Released or Released HQ entries
-        start3 = 'Not Released'
-        start4 = 'Discontinued'
-        if start4 in text:
-            status = start4
-        elif start3 in text:
-            status = start3
-        elif start1_2 in text:
-            status = start1_2
+        print(text)
+        if 'Discontinued' in text:
+            return 'Discontinued'
+        elif 'Not Released' in text:
+            return 'Not Released'
+        elif 'Released HQ' in text:
+            return 'Released HQ'
+        elif 'Released' in text:
+            return 'Released'
         else:
             print('Error occured: no release status found')
-        return status
+            return ''
     
     def get_sample_status(self,text):
-        return 0
+        if 'Sample In Stock' in text:
+            return 'Sample In stock'
+        elif "It's Complicated" in text:
+            return "It's complicated"
+        elif 'Not in Stock' in text:
+            return 'Not in Stock'
+        elif 'Informational' in text:
+            return 'Informational'
+        else:
+            print('Error occured: no sample status found')
+            return ''
     
-    def get_experience(self,text):
-        return 0
+    def get_experience(self,text,sample):
+        #Requires the sample status due to re being needed for registry star counting
+        if 'Registy Star' in text:
+            return re.findall({sample}+r'\d*use',text)
+        elif 'Works' in text:
+            return 'Works'
+        elif 'Issues' in text:
+            return 'Issues'
+        elif 'Fails' in text:
+            return 'Fails'
+        else:
+            print('Error occured: no sample status found')
+            return ''
     
-    def get_uses(self,text):
+    def get_uses(self,text,experience):
+        #Requires the experience due to re being needed for use counting
+        re.findall()
+
         return 0
     
     def get_twins(self,text):
         return 0
-
 
     def check_fasta(self):
         '''
