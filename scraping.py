@@ -38,9 +38,9 @@ class Scraper:
         with open(name+'.txt', 'w') as f:
             f.write(self.content)
     
-    def content_get_data(self):
+    def scrape_data(self):
         '''
-        This scrapes
+        This scrapes the 
         '''
         #Creates a smaller version of the file for reading in information from the status box
         digest = self.content[self.content.find('main page'):]
@@ -58,9 +58,11 @@ class Scraper:
         org = self.get_org()
         date = self.get_date()
 
-
         return [part_status,sample_status,experience,uses,twins,authors,org,date]
     
+    def scrape_text(self):
+        return re.findall(self.get_date()+r'\)(.*)\[edit\]',self.content,re.DOTALL)
+
     def get_part_status(self,text):
         if 'discontinued' in text:
             return 'Discontinued'
