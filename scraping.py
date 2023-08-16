@@ -53,8 +53,9 @@ class Scraper:
         experience = self.get_experience(prelude,sample_status)
         uses = self.get_uses(prelude,experience)
         twins = self.get_twins(prelude)
+        authors = self.get_authors()
 
-        return [part_status,sample_status,experience,uses,twins]
+        return [part_status,sample_status,experience,uses,twins,authors]
     
     def get_part_status(self,text):
         if 'discontinued' in text:
@@ -122,6 +123,10 @@ class Scraper:
             return 'Contains Twins'
         else:
             return 'No Twins'
+
+    def get_authors(self):
+        return re.findall(r'Designed by: (.*\w).*Group:',self.content)
+    
 
     def check_fasta(self):
         '''
