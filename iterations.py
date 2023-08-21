@@ -23,7 +23,7 @@ class Iterator:
         print(urls)
         print(sys.getsizeof(urls))
         file.close()
-    
+
     def get_size_csvs(self,url_list,sPoint=1):
         '''
         Takes an starting point (sPoint, int) and txt file name as parameters (str)
@@ -61,7 +61,7 @@ class Trial:
     def page_as_csv(self,name,scrape):
         with open(name+'.csv', 'w', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow(['part','part_status','sample_status','experience','uses','twins','authors','team','date','text'])
+            writer.writerow(['part','part_status','sample_status','sample_standard','experience','uses','twins','authors','team','date','text'])
             csv.writer(file).writerow(scrape.package_for_csv())
     
     def check_size(self,scrape):
@@ -74,7 +74,6 @@ class Trial:
         print(f'filesize: {size} bytes')
         os.remove('temp_file.csv')
         print('\nTEMPORARY FILE DELETED')
-
 
     def dual_check_size(self,url_list):
         total = 0

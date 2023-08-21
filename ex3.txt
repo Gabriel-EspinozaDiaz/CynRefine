@@ -1,0 +1,49 @@
+
+
+Part:BBa B1002 - parts.igem.org
+
+Loading menubar..... 
+
+main page
+design
+experience
+information
+
+Not Released
+Sample In stock
+RFC:  23 
+1 Registry Star
+63 Uses
+
+3 Twins
+ Get This Part
+Terminator
+
+Part:BBa_B1002 
+                Designed by: Haiyao Huang    Group: Knight Lab   (2006-08-30)
+
+biology-NA-directionForwardforward_efficiency0.98[CH]n/aForwardreversed_version-NA-reverse_efficiency-NA-
+
+Terminator (artificial, small, %T~=85%)
+
+ Artifical terminator, estimated %T~=85
+ 6bp stem, 4nt loop
+ Bidirectional, estimated reverse %T=75
+
+Secondary Structure
+File:Mfold-B1002-1.png
+
+Measurement
+
+ How these parts were measured
+
+        [edit]
+
+Categories
+    //terminator/single
+//direction/forward
+
+Parameters
+
+biologydirectionForwardforward_efficiency0.98[CH]n/aForwardreversed_versionreverse_efficiency
+

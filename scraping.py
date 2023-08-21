@@ -56,7 +56,8 @@ class Scraper:
         # Determines all tag data from status box information (see info on status boxes at http://parts.igem.org/Help:Part_Status_Box)
         part_status = self.get_part_status(digest)
         sample_status = self.get_sample_status(digest)
-        experience = self.get_experience(digest,sample_status)
+        rfc = self.get_sample_standard(digest)
+        experience = self.get_experience(digest,sample_status,rfc)
         uses = self.get_uses(digest,experience)
         twins = self.get_twins(digest)
 
@@ -65,7 +66,7 @@ class Scraper:
         org = self.get_org()
         date = self.get_date()
 
-        return [self.name,part_status,sample_status,experience,uses,twins,authors,org,date]
+        return [self.name,part_status,sample_status,rfc,experience,uses,twins,authors,org,date]
 
     def scrape_text(self):
         '''
@@ -99,15 +100,28 @@ class Scraper:
             print('Error occured: no sample status found')
             return ''
     
-    def get_experience(self,text,sample):
-        #Requires the sample status due to re being needed for registry star counting
+    def get_sample_standard(self,text):
+        if 'rfc' in text:
+            rfc = re.findall(r'rfc:  (\d*) \n',text)[0]
+            return 'RFC ' + rfc
+        else:
+            return 'RFC 10'
+
+    def get_experience(self,text,sample,rfc):
+        #Requires the sample status and rfc due to re being needed for registry star counting
         if 'registry star' in text:
-            sample = sample.lower()+'\n'
-            result = re.findall(sample+r'(\d*) registry star',text)[0]
+            #Checks if the previous statement is RFC or sample status
+            if rfc != 'RFC 10':
+                rfc = re.findall(r'\d+',rfc)[0]+' \n'
+                result = re.findall(rfc+r'(\d*) registry star',text)[0]
+            else: 
+                sample = sample.lower()+'\n'
+                result = re.findall(sample+r'(\d*) registry star',text)[0]
+            #writes in registry stars with appropriate grammar
             if int(result) == 1:
-                return result+' Registry Star'
+                return result + ' Registry Star'
             else:
-                return result+' Registry Stars'
+                return result + ' Registry Stars'
         elif 'experience: none' in text:
             return 'Experience: None'
         elif 'works' in text:
