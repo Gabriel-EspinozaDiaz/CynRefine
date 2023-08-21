@@ -11,6 +11,9 @@ import numpy as np
 
 
 class Iterator:
+    def __init__(self):
+        self.errors = []
+
 
     def get_size_url(url_list):
         '''
@@ -45,16 +48,26 @@ class Iterator:
             print('ePoint defaulted')
         #Loop through 
         for n in range(sPoint-1,ePoint):
-            with open('temp_file.csv','w',newline='') as file:
-                url = urls[n]
-                scrape = Scraper(url)
-                csv.writer(file).writerow(scrape.package_for_csv())
-            total += os.path.getsize('temp_file.csv')
-            print(f'current repository size: {total} bytes')
-            os.remove('temp_file.csv')
-            print(f'file {n+1} ({url}) removed\n')
+            try:
+                with open('temp_file.csv','w',newline='') as file:
+                    scrape = Scraper(urls[n])
+                    csv.writer(file).writerow(scrape.package_for_csv())
+                total += os.path.getsize('temp_file.csv')
+                print(f'current repository size: {total} bytes')
+                os.remove('temp_file.csv')
+                print(f'file {n+1} ({urls[n]}) removed\n')
+            except:
+                #Record any errors that the scraper ran into
+                print(f'error occurred at file {n+1} ({urls[n]})')
+                self.errors.append(urls[n])
+                continue
             #Give the website a bit of time in between requests to avoid being blocked
             time.sleep(1)
+        with open('readme.txt', 'w') as file:
+            for n in range(len(self.errors)):
+                file.write(self.errors[n]+'\n')
+        
+        
 
 class Trial:
     '''
