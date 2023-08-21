@@ -27,9 +27,9 @@ class Scraper:
         response = requests.get(self.url)
         # Determine whether the website exists 
         if response.status_code == 200: 
-            print("response successful. The website exists.")
+            return True
         else:
-            print("response failed.")
+            return False
         
     def check_existence(self):
         '''

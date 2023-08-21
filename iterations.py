@@ -24,9 +24,9 @@ class Iterator:
         print(sys.getsizeof(urls))
         file.close()
 
-    def get_size_csvs(self,url_list,sPoint=1):
+    def get_size_csvs(self,url_list,sPoint=1,ePoint=-1):
         '''
-        Takes an starting point (sPoint, int) and txt file name as parameters (str)
+        Takes an starting point (sPoint, int), ending point (ePoint, int) and txt file name as parameters (str)
         Checks all urls listed in the file, writing all content into a csv file and then 
         Based on the current size of the repository and the need for breaks to prevent getting kicked off the website, this method takes 6-8 hours to complete
         On account of that, sPoint can be used to start the process at a desired file. 
@@ -39,8 +39,12 @@ class Iterator:
         for n in file.readlines():
             urls.append(n.replace('\n',''))
         file.close()
+        #check ePoint
+        if ePoint < 0 or ePoint > len(urls):
+            ePoint=len(urls)
+            print('ePoint defaulted')
         #Loop through 
-        for n in range(sPoint-1,len(urls)):
+        for n in range(sPoint-1,ePoint):
             with open('temp_file.csv','w',newline='') as file:
                 url = urls[n]
                 scrape = Scraper(url)
