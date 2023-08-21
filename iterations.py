@@ -45,6 +45,19 @@ class Trial:
             writer = csv.writer(file)
             writer.writerow(['part','part_status','sample_status','experience','uses','twins','authors','team','date','text'])
             csv.writer(file).writerow(scrape.package_for_csv())
+    
+    def check_size(url,scrape):
+        with open('temp_file.csv','w',newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['part','part_status','sample_status','experience','uses','twins','authors','team','date','text'])
+            csv.writer(file).writerow(scrape.package_for_csv())
+        print('\nTEMPORARY FILE INITIALISED')
+        size = os.path.getsize('temp_file.csv')
+        print(f'filesize: {size} bytes')
+        time.sleep(5)
+        os.remove('temp_file.csv')
+        print('\nTEMPORARY FILE DELETED')
+
 
 
 
