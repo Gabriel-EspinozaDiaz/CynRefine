@@ -1,0 +1,2 @@
+http://parts.igem.org/Part:BBa_C0040
+http://parts.igem.org/wiki/index.php?title=Part:BBa_K2607001
