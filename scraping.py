@@ -97,6 +97,8 @@ class Scraper:
                 return result+' Registry Star'
             else:
                 return result+' Registry Stars'
+        elif 'experience: none' in text:
+            return 'Experience: None'
         elif 'works' in text:
             return 'Works'
         elif 'issues' in text:

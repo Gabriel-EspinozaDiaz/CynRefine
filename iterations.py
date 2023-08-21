@@ -24,21 +24,26 @@ class Iterator:
         print(sys.getsizeof(urls))
         file.close()
     
-    def get_size_texts(url_list):
-        '''
-        Scrapes all web contents used by 
-        '''
+    def get_size_csvs(self,url_list):
         total = 0
         urls = []
-        #Read all urls into a list
+        #Store urls in list
         file = open(url_list,'r')
         for n in file.readlines():
-            urls.append(n)
+            urls.append(n.replace('\n',''))
         file.close()
-        #Write each
-
-
-        file.close()
+        #Loop through 
+        for n in range(len(urls)):
+            with open('temp_file.csv','w',newline='') as file:
+                url = urls[n]
+                scrape = Scraper(url)
+                csv.writer(file).writerow(scrape.package_for_csv())
+            total += os.path.getsize('temp_file.csv')
+            print(f'current repository size: {total} bytes')
+            os.remove('temp_file.csv')
+            print(f'file {n+1} ({url}) removed')
+            #Give the website a bit of time in between requests to avoid being blocked
+            time.sleep(1)
 
 class Trial:
     '''
