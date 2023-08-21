@@ -8,6 +8,7 @@ This is the scraper module. It accepts a url and
 '''
 
 class Scraper:
+
     def __init__(self,url):
         if type(url) != str:
             raise TypeError("url must be in string form")
@@ -20,6 +21,8 @@ class Scraper:
         self.content = content
         self.name = re.findall(r'Part:(BBa_.*)',self.url)[0]
     
+# PAGE VERIFICATION
+
     def check_url(self):
         '''
         Ensures that the url exists
@@ -40,9 +43,29 @@ class Scraper:
         else:
             return True
 
-    def write_content(self,name):
-        with open(name+'.txt', 'w') as f:
-            f.write(self.content)
+    def check_fasta(self):
+        '''
+        Every page with an attached sequence has a counterpart page under the format "http://parts.igem.org/fasta/parts/BBa_xxxxx"
+        If said page exists, this method checks that and extracts the sequence and returns it
+        If not the page returns False
+        '''
+        fasta = 'http://parts.igem.org/fasta/parts/BBa_'+re.findall("BBa_.+",self.url)[0][4:]
+        response = requests.get(fasta)
+        if response.status_code == 200: 
+            data = ''
+            for line in list(urllib.request.urlopen(fasta))[1:]:
+                data += str(line)
+                sequence = ''
+            #Removes byte markers
+            for c in data:
+                if c == 'b' or c == "'":
+                    continue
+                sequence += c
+            return sequence
+        else: 
+            return False
+
+# GENERAL SCRAPING 
 
     def scrape_data(self):
         '''
@@ -73,6 +96,8 @@ class Scraper:
         Returns all of the text found on the page
         '''
         return re.findall(self.get_date()+r'\)(.*)\[edit\]',self.content,re.DOTALL)[0]
+
+# TAG SCRAPING
 
     def get_part_status(self,text):
         if 'discontinued' in text:
@@ -130,8 +155,10 @@ class Scraper:
             return 'Issues'
         elif 'fails' in text:
             return 'Fails'
+        elif 'no results' in text:
+            return 'No Results'
         else:
-            print('Error occured: no sample status found')
+            print('Error occured: no experience status found')
             return ''
     
     def get_uses(self,text,exp):
@@ -168,6 +195,8 @@ class Scraper:
     def get_date(self):
         return re.findall(r'\((.*)\)',self.content)[0]
 
+# OTHER
+
     def package_for_csv(self):
         '''
         Packages all relevant information so that it can be read into a single row for a csv file
@@ -179,24 +208,6 @@ class Scraper:
         data.append(text)
         return data
 
-    def check_fasta(self):
-        '''
-        Every page with an attached sequence has a counterpart page under the format "http://parts.igem.org/fasta/parts/BBa_xxxxx"
-        If said page exists, this method checks that and extracts the sequence and returns it
-        If not the page returns False
-        '''
-        fasta = 'http://parts.igem.org/fasta/parts/BBa_'+re.findall("BBa_.+",self.url)[0][4:]
-        response = requests.get(fasta)
-        if response.status_code == 200: 
-            data = ''
-            for line in list(urllib.request.urlopen(fasta))[1:]:
-                data += str(line)
-                sequence = ''
-            #Removes byte markers
-            for c in data:
-                if c == 'b' or c == "'":
-                    continue
-                sequence += c
-            return sequence
-        else: 
-            return False
+    def write_content(self,name):
+        with open(name+'.txt', 'w') as f:
+            f.write(self.content)
