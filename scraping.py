@@ -18,6 +18,7 @@ class Scraper:
         content = re.sub(r'(\n\s*)+\n', '\n\n',soup.get_text())
         self.url = url
         self.content = content
+        self.name = re.findall(r'Part:(BBa_.*)',self.url)[0]
     
     def check_url(self):
         '''
@@ -30,6 +31,15 @@ class Scraper:
         else:
             print("response failed.")
         
+    def check_existence(self):
+        '''
+        Some urls are responsive but contain no content. Returns True if the page has content, and False if not. 
+        '''
+        if f'Part:http://parts.igem.org/Part{self.name}: Deleted' in self.content:
+            return False
+        else:
+            return True
+
     def write_content(self,name):
         with open(name+'.txt', 'w') as f:
             f.write(self.content)
@@ -38,10 +48,11 @@ class Scraper:
         '''
         Returns a list containing authors, team, date, and all statuses listed on the page. 
         '''
+        #Some urls still exist but the content has been deleted. Before any processing is done, it has to be ensured that 
+
         #Creates a smaller version of the file for reading in information from the status box
         digest = self.content[self.content.find('main page'):]
         digest = digest[:digest.find('Part:BBa_')].lower()
-
         # Determines all tag data from status box information (see info on status boxes at http://parts.igem.org/Help:Part_Status_Box)
         part_status = self.get_part_status(digest)
         sample_status = self.get_sample_status(digest)
@@ -54,8 +65,8 @@ class Scraper:
         org = self.get_org()
         date = self.get_date()
 
-        return [part_status,sample_status,experience,uses,twins,authors,org,date]
-    
+        return [self.name,part_status,sample_status,experience,uses,twins,authors,org,date]
+
     def scrape_text(self):
         '''
         Returns all of the text found on the page
@@ -147,8 +158,7 @@ class Scraper:
         '''
         Packages all relevant information so that it can be read into a single row for a csv file
         '''
-        data = [re.findall(r'Part:(BBa_.*)',self.url)[0]]
-        data += self.scrape_data()
+        data = self.scrape_data()
         #Removes all commas from text, as to avoid confusing the csv file
         text = self.scrape_text().replace(',','')
         text = text.replace('\n','')
