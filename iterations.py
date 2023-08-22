@@ -11,7 +11,7 @@ class Iterator:
     def __init__(self):
         self.errors = []
 
-    def get_urls(url_list):
+    def get_urls(self,url_list):
         '''
         Takes a txt file containing all urls and loads them all into a list
         '''
@@ -25,17 +25,19 @@ class Iterator:
     def get_size_csvs(self,url_list,sPoint=1,ePoint=-1):
         '''
         Takes an starting point (sPoint, int), ending point (ePoint, int) and txt file name as parameters (str)
-        Checks all urls listed in the file, writing all content into a csv file, determining and recording the size of that file, and then deleting
+        Checks all urls listed in the file, writing all content into a csv file, determining and recording the size of that file, and then deleting the file
         Based on the current size of the repository and the need for breaks to prevent getting kicked off the website, this method takes 10-14 hours to complete
         On account of that, sPoint can be used to start the process at a desired file. 
-        The method prints the name and line number of the url in url_list. If you want to skip over files, use the last printed file # as sPoint 
+        The method prints the name and line number of the url in url_list. 
+        If you want to skip over files, use the last printed file # as sPoint. Abide by the same logic for ePoint
+        If any issues occur with a particular url, the url is recorded and skipped over. In order to recover any urls that caused errors, the full run needs to be completed. 
         '''
         total = 0
         urls = self.get_urls(url_list)
-        #check ePoint
+
         if ePoint < 0 or ePoint > len(urls):
             ePoint=len(urls)
-        #Loop through 
+
         for n in range(sPoint-1,ePoint):
             try:
                 with open('temp_file.csv','w',newline='') as file:
@@ -46,11 +48,9 @@ class Iterator:
                 os.remove('temp_file.csv')
                 print(f'file {n+1} ({urls[n]}) removed\n')
             except:
-                #Record any errors that the scraper ran into
                 print(f'error occurred at file {n+1} ({urls[n]})')
                 self.errors.append(urls[n])
                 continue
-            #Give the website a bit of time in between requests to avoid being blocked
             time.sleep(0.5)
         print(f'\nFINAL SIZE REPOSITORY SIZE: {total}\n')
         with open('readme.txt', 'w') as file:
@@ -68,7 +68,12 @@ class Iterator:
         #Loop through 
         for n in range(sPoint-1,ePoint):
             try:
-                scrape = Scraper(urls[n])
+                with open('allpages.csv', 'w', newline='') as file:
+                    writer = csv.writer(file)
+                    writer.writerow(['part','part_status','sample_status','sample_standard','experience','uses','twins','authors','team','date','text'])
+                    for n in range(len(urls)):
+                        writer.writerow(Scraper(urls[n]).package_for_csv())
+                        time.sleep(0.5)
             except:
                 #Record any errors that the scraper ran into
                 print(f'error occurred at file {n+1} ({urls[n]})')
@@ -78,19 +83,38 @@ class Iterator:
             time.sleep(0.5)
 
 
+
+
 class Trial:
     '''
     These are methods mirror those of Iterator, but only operate on a single page, rather than all 24,098 pages. 
     This is just for testing on the scope of a single file using a similar format to that of the iterator without the risk of blowing up my laptop. 
     '''
 
+    def get_urls(url_list):
+        '''
+        Takes a txt file containing all urls and loads them all into a list
+        '''
+        urls = []
+        file = open(url_list,'r')
+        for n in file.readlines():
+            urls.append(n.replace('\n',''))
+        file.close()
+        return urls
+
     def page_as_csv(self,name,scrape):
+        '''
+        Accepts a filename (str) and scrape (Scraper) and puts the data into a csv file
+        '''
         with open(name+'.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['part','part_status','sample_status','sample_standard','experience','uses','twins','authors','team','date','text'])
             csv.writer(file).writerow(scrape.package_for_csv())
     
     def check_size(self,scrape):
+        '''
+        Test checking size for a single url
+        '''
         with open('temp_file.csv','w',newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['part','part_status','sample_status','experience','uses','twins','authors','team','date','text'])
@@ -125,6 +149,15 @@ class Trial:
             os.remove('temp_file.csv')
             print('\nTEMPORARY FILE DELETED')
 
-
-
-
+    def scrape_few(self,url_list):
+        '''
+        Takes urls (str) in list form and scrapes html and text off each webpage
+        Uses the 
+        '''
+        with open('fewfiles.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['part','part_status','sample_status','sample_standard','experience','uses','twins','authors','team','date','text'])
+            for n in range(len(url_list)):
+                writer.writerow(Scraper(url_list[n]).package_for_csv())
+                time.sleep(0.5)
+        
